@@ -1,7 +1,7 @@
-function RunFunction($trace, $transitions, $rootScope) {
+function Run($trace, $transitions, $rootScope) {
    "ngInject";
 
-   // $trace.enable('TRANSITION');
+   $trace.enable('TRANSITION');
 
    // Restrict dashboard access to authenticated users only
    // $transitions.onStart({ to: 'home' }, function(trans) {
@@ -17,4 +17,4 @@ function RunFunction($trace, $transitions, $rootScope) {
    // });
 }
 
-module.exports = RunFunction;
+module.exports = Run;

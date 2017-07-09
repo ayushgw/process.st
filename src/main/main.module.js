@@ -1,8 +1,11 @@
-var angular = require('angular');
+require('angular');
 
 require('./main.styles.sass');
 var MainController = require('./main.controller');
 
-module.exports = angular.module('main', [])
+var main = angular.module('main', [])
 .controller('MainController', MainController)
 .name
+;
+
+module.exports = main;

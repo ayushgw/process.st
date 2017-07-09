@@ -5,9 +5,10 @@ function Routes($urlRouterProvider, $stateProvider, $locationProvider, $mdThemin
    $locationProvider.html5Mode(true);
    $locationProvider.hashPrefix('!');
 
-
+   // Default Route
    $urlRouterProvider.otherwise('/');
 
+   // Defining Routes
    $stateProvider
    .state('main', {
       url: '/',
@@ -20,20 +21,9 @@ function Routes($urlRouterProvider, $stateProvider, $locationProvider, $mdThemin
       template: require('./home/home.template.html'),
       controller: 'HomeController',
       controllerAs: 'home'
-   });
+   })
+   ;
 
-
-   // $mdThemingProvider.theme('default')
-   // .primaryPalette('blue-grey', {
-   //    'default': '400',
-   //    'hue-1': '100',
-   //    'hue-2': '600',
-   //    'hue-3': 'A100'
-   // })
-   // .accentPalette('blue-grey', {
-   //    'default': '100'
-   // })
-   // .warnPalette('amber');
 
    $mdAriaProvider.disableWarnings();
 }

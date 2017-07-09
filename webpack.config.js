@@ -6,22 +6,22 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const VENDOR_LIBS = ['angular', 'angular-material', 'angular-ui-router', 'angular-aria', 'angular-messages', 'angular-animate', 'mdi'];
 
+const extractSass = new ExtractTextPlugin({
+   filename: "[name].[contenthash:10].css",
+   disable: process.env.NODE_ENV === "development"
+});
+
 const PLUGINS = [
    new ngAnnotatePlugin({ add: true }),
    new HtmlWebpackPlugin({
       template: 'src/index.html'
    }),
    // new ExtractTextPlugin('style-[contenthash:10].css'),
-   extractSass,
    new webpack.optimize.CommonsChunkPlugin({
       name: ['vendor', 'manifest']
-   })
+   }),
+   extractSass
 ];
-
-const extractSass = new ExtractTextPlugin({
-   filename: "[name].[contenthash].css",
-   disable: process.env.NODE_ENV === "development"
-});
 
 const config = {
    entry: {
@@ -32,22 +32,23 @@ const config = {
       path: path.resolve(__dirname, 'build'),
       filename: '[name]-[hash:10].js',
    },
-   devtool: "eval",
+   // devtool: "eval",
    plugins: PLUGINS,
    module: {
       rules: [
          {
             test: /\.js$/,
             exclude: /node_modules/,
+            // use: 'babel-loader'
+         },
+         {
+            test: /\.css$/,
+            use: ExtractTextPlugin.extract(['css-loader']),
          },
          {
             test: /\.scss$/,
             use: extractSass.extract({
-               use: [{
-                  loader: "css-loader"
-               }, {
-                  loader: "sass-loader"
-               }],
+               use: ["css-loader", "sass-loader"],
                // use style-loader in development
                fallback: "style-loader"
             })
